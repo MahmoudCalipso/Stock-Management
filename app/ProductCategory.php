@@ -3,25 +3,36 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
-class ProductCategory extends Model
+class ProductCategory extends Model implements HasMedia
 {
+    use SoftDeletes, HasMediaTrait;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $table = 'productstyles';
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
 
     protected $fillable = [
-        'name','status','created_at','update_at'
+        'name',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+        'description',
     ];
-    public function products()
+
+    public function getphotoAttribute()
     {
-        return $this->hasMany('App\Product', 'styleID', 'id');
+        $file = $this->getMedia('photo')->last();
+
+        if ($file) {
+            $file->url = $file->getUrl();
+        }
+
+        return $file;
     }
-
-
-
 }
