@@ -1,65 +1,57 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Route::redirect('/', '/login');
 
+Route::redirect('/home', '/admin');
 
+Auth::routes(['register' => false]);
 
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
+    Route::get('/', 'HomeController@index')->name('home');
 
+    Route::delete('permissions/destroy', 'PermissionsController@massDestroy')->name('permissions.massDestroy');
 
-//stock controller
-Route::get('/', 'StockController@view')->name('stock');
-Route::post('/save-purchase-old-invoice', 'StockController@save_purchaseOLD');
-Route::post('/save-purchase', 'StockController@save_purchase')->name('save_purchase');
-Route::get('/add-stock', 'StockController@index')->name('StockPurchase-purchase');
-Route::get('/stock-manage', 'StockController@view')->name('home');
-Route::get('/view-stock-details/{ID}', 'StockController@viewDetails');
-Route::post('/update-product-details', 'StockController@updateproductDetails');
+    Route::resource('permissions', 'PermissionsController');
 
+    Route::delete('roles/destroy', 'RolesController@massDestroy')->name('roles.massDestroy');
 
-//supplyer controller
-Route::get('/supplyer', 'SupplyerController@index')->name('SupplyerMangement');
-Route::get('/view-supplyer/{ID}', 'SupplyerController@view_supplyer');
-Route::post('/update-supplyer', 'SupplyerController@update_info');
-Route::get('/published-supplyer/{ID}', 'SupplyerController@published_supplyer');
-Route::get('/unpublished-supplyer/{ID}', 'SupplyerController@unpublished_supplyer');
-Route::post('/save-supplyer', 'SupplyerController@save_supplyer');
-Route::get('/getAllSupplyer', 'SupplyerController@getAllsupplyer');
-Route::post('/save-supplyerAJAX', 'SupplyerController@save_supplyerAJAX');
+    Route::resource('roles', 'RolesController');
 
+    Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
 
-//supplyerPayment
-Route::get('/supplyerPayment', 'SupplyerController@viewPayment');
-Route::get('/supplyerPaymentDetails/{ID}', 'SupplyerController@paymentDetails');
-Route::post('/save-supplyer-payment', 'SupplyerController@save_supplyer_payment');
+    Route::resource('users', 'UsersController');
 
+    Route::delete('product-categories/destroy', 'ProductCategoryController@massDestroy')->name('product-categories.massDestroy');
 
-//Settings route controller
-//brand
+    Route::resource('product-categories', 'ProductCategoryController');
 
-Route::get('/settings', 'SettingsController@index');
-Route::post('/save-brand', 'SettingsController@save_brand');
-Route::get('/published-brand/{productId}', 'SettingsController@published_brand');
-Route::get('/unpublished-brand/{productId}', 'SettingsController@unpublished_brand');
-Route::post('/update-brand-info', 'SettingsController@update_brand_info');
+    Route::post('product-categories/media', 'ProductCategoryController@storeMedia')->name('product-categories.storeMedia');
 
+    Route::delete('product-tags/destroy', 'ProductTagController@massDestroy')->name('product-tags.massDestroy');
 
-//Product Category -STYLE
-Route::get('/get-brand', 'SettingsController@getBrand');
+    Route::resource('product-tags', 'ProductTagController');
 
-Route::get('/get-style', 'ProductController@get');
-Route::post('/save-style', 'ProductController@save');
-Route::get('/published-style/{ID}', 'ProductController@publish');
-Route::get('/unpublished-style/{ID}', 'ProductController@unpublish');
-Route::post('/update-style-info', 'ProductController@update');
+    Route::delete('products/destroy', 'ProductController@massDestroy')->name('products.massDestroy');
 
+    Route::resource('products', 'ProductController');
 
-Route::get('/makepdfpurchase/{ID}', 'StockController@pdf');
+    Route::post('products/media', 'ProductController@storeMedia')->name('products.storeMedia');
+
+    Route::delete('task-statuses/destroy', 'TaskStatusController@massDestroy')->name('task-statuses.massDestroy');
+
+    Route::resource('task-statuses', 'TaskStatusController');
+
+    Route::delete('task-tags/destroy', 'TaskTagController@massDestroy')->name('task-tags.massDestroy');
+
+    Route::resource('task-tags', 'TaskTagController');
+
+    Route::delete('tasks/destroy', 'TaskController@massDestroy')->name('tasks.massDestroy');
+
+    Route::resource('tasks', 'TaskController');
+
+    Route::post('tasks/media', 'TaskController@storeMedia')->name('tasks.storeMedia');
+
+    Route::delete('tasks-calendars/destroy', 'TasksCalendarController@massDestroy')->name('tasks-calendars.massDestroy');
+
+    Route::resource('tasks-calendars', 'TasksCalendarController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
+});

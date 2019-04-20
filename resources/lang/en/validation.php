@@ -1,18 +1,6 @@
 <?php
 
 return [
-
-    /*
-    |--------------------------------------------------------------------------
-    | Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines contain the default error messages used by
-    | the validator class. Some of these rules have multiple versions such
-    | as the size rules. Feel free to tweak each of these messages here.
-    |
-    */
-
     'accepted'             => 'The :attribute must be accepted.',
     'active_url'           => 'The :attribute is not a valid URL.',
     'after'                => 'The :attribute must be a date after :date.',
@@ -42,6 +30,18 @@ return [
     'exists'               => 'The selected :attribute is invalid.',
     'file'                 => 'The :attribute must be a file.',
     'filled'               => 'The :attribute field must have a value.',
+    'gt'                   => [
+        'numeric' => 'The :attribute must be greater than :value.',
+        'file'    => 'The :attribute must be greater than :value kilobytes.',
+        'string'  => 'The :attribute must be greater than :value characters.',
+        'array'   => 'The :attribute must have more than :value items.',
+    ],
+    'gte'                  => [
+        'numeric' => 'The :attribute must be greater than or equal :value.',
+        'file'    => 'The :attribute must be greater than or equal :value kilobytes.',
+        'string'  => 'The :attribute must be greater than or equal :value characters.',
+        'array'   => 'The :attribute must have :value items or more.',
+    ],
     'image'                => 'The :attribute must be an image.',
     'in'                   => 'The selected :attribute is invalid.',
     'in_array'             => 'The :attribute field does not exist in :other.',
@@ -50,6 +50,18 @@ return [
     'ipv4'                 => 'The :attribute must be a valid IPv4 address.',
     'ipv6'                 => 'The :attribute must be a valid IPv6 address.',
     'json'                 => 'The :attribute must be a valid JSON string.',
+    'lt'                   => [
+        'numeric' => 'The :attribute must be less than :value.',
+        'file'    => 'The :attribute must be less than :value kilobytes.',
+        'string'  => 'The :attribute must be less than :value characters.',
+        'array'   => 'The :attribute must have less than :value items.',
+    ],
+    'lte'                  => [
+        'numeric' => 'The :attribute must be less than or equal :value.',
+        'file'    => 'The :attribute must be less than or equal :value kilobytes.',
+        'string'  => 'The :attribute must be less than or equal :value characters.',
+        'array'   => 'The :attribute must not have more than :value items.',
+    ],
     'max'                  => [
         'numeric' => 'The :attribute may not be greater than :max.',
         'file'    => 'The :attribute may not be greater than :max kilobytes.',
@@ -65,6 +77,7 @@ return [
         'array'   => 'The :attribute must have at least :min items.',
     ],
     'not_in'               => 'The selected :attribute is invalid.',
+    'not_regex'            => 'The :attribute format is invalid.',
     'numeric'              => 'The :attribute must be a number.',
     'present'              => 'The :attribute field must be present.',
     'regex'                => 'The :attribute format is invalid.',
@@ -87,35 +100,143 @@ return [
     'unique'               => 'The :attribute has already been taken.',
     'uploaded'             => 'The :attribute failed to upload.',
     'url'                  => 'The :attribute format is invalid.',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | Here you may specify custom validation messages for attributes using the
-    | convention "attribute.rule" to name the lines. This makes it quick to
-    | specify a specific custom language line for a given attribute rule.
-    |
-    */
-
-    'custom' => [
+    'custom'               => [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
     ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Attributes
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used to swap attribute place-holders
-    | with something more reader friendly such as E-Mail Address instead
-    | of "email". This simply helps us make messages a little cleaner.
-    |
-    */
-
-    'attributes' => [],
-
+    'attributes'           => [],
+    'site_title'           => 'project management',
+    'userManagement'       => [
+        'title'          => 'User Management',
+        'title_singular' => 'User Management',
+        'fields'         => [],
+    ],
+    'permission'           => [
+        'title'          => 'Permissions',
+        'title_singular' => 'Permission',
+        'fields'         => [
+            'id'                => 'ID',
+            'id_helper'         => '',
+            'title'             => 'Title',
+            'title_helper'      => '',
+            'created_at'        => 'Created at',
+            'created_at_helper' => '',
+            'updated_at'        => 'Updated at',
+            'updated_at_helper' => '',
+            'deleted_at'        => 'Deleted at',
+            'deleted_at_helper' => '',
+        ],
+    ],
+    'role'                 => [
+        'title'          => 'Roles',
+        'title_singular' => 'Role',
+        'fields'         => [
+            'id'                 => 'ID',
+            'id_helper'          => '',
+            'title'              => 'Title',
+            'title_helper'       => '',
+            'permissions'        => 'Permissions',
+            'permissions_helper' => '',
+            'created_at'         => 'Created at',
+            'created_at_helper'  => '',
+            'updated_at'         => 'Updated at',
+            'updated_at_helper'  => '',
+            'deleted_at'         => 'Deleted at',
+            'deleted_at_helper'  => '',
+        ],
+    ],
+    'user'                 => [
+        'title'          => 'Users',
+        'title_singular' => 'User',
+        'fields'         => [
+            'id'                       => 'ID',
+            'id_helper'                => '',
+            'name'                     => 'Name',
+            'name_helper'              => '',
+            'email'                    => 'Email',
+            'email_helper'             => '',
+            'email_verified_at'        => 'Email verified at',
+            'email_verified_at_helper' => '',
+            'password'                 => 'Password',
+            'password_helper'          => '',
+            'roles'                    => 'Roles',
+            'roles_helper'             => '',
+            'remember_token'           => 'Remember Token',
+            'remember_token_helper'    => '',
+            'created_at'               => 'Created at',
+            'created_at_helper'        => '',
+            'updated_at'               => 'Updated at',
+            'updated_at_helper'        => '',
+            'deleted_at'               => 'Deleted at',
+            'deleted_at_helper'        => '',
+        ],
+    ],
+    'productManagement'    => [
+        'title'          => 'Product Management',
+        'title_singular' => 'Product Management',
+        'fields'         => [],
+    ],
+    'productCategory'      => [
+        'title'          => 'Categories',
+        'title_singular' => 'Category',
+        'fields'         => [
+            'id'                 => 'ID',
+            'id_helper'          => '',
+            'name'               => 'Name',
+            'name_helper'        => '',
+            'description'        => 'Description',
+            'description_helper' => '',
+            'photo'              => 'Photo',
+            'photo_helper'       => '',
+            'created_at'         => 'Created at',
+            'created_at_helper'  => '',
+            'updated_at'         => 'Updated At',
+            'updated_at_helper'  => '',
+            'deleted_at'         => 'Deleted At',
+            'deleted_at_helper'  => '',
+        ],
+    ],
+    'productTag'           => [
+        'title'          => 'Tags',
+        'title_singular' => 'Tag',
+        'fields'         => [
+            'id'                => 'ID',
+            'id_helper'         => '',
+            'name'              => 'Name',
+            'name_helper'       => '',
+            'created_at'        => 'Created at',
+            'created_at_helper' => '',
+            'updated_at'        => 'Updated At',
+            'updated_at_helper' => '',
+            'deleted_at'        => 'Deleted At',
+            'deleted_at_helper' => '',
+        ],
+    ],
+    'product'              => [
+        'title'          => 'Products',
+        'title_singular' => 'Product',
+        'fields'         => [
+            'id'                 => 'ID',
+            'id_helper'          => '',
+            'name'               => 'Name',
+            'name_helper'        => '',
+            'description'        => 'Description',
+            'description_helper' => '',
+            'price'              => 'Price',
+            'price_helper'       => '',
+            'category'           => 'Categories',
+            'category_helper'    => '',
+            'tag'                => 'Tags',
+            'tag_helper'         => '',
+            'photo'              => 'Photo',
+            'photo_helper'       => '',
+            'created_at'         => 'Created at',
+            'created_at_helper'  => '',
+            'updated_at'         => 'Updated At',
+            'updated_at_helper'  => '',
+            'deleted_at'         => 'Deleted At',
+            'deleted_at_helper'  => '',
+        ],
+    ],
 ];

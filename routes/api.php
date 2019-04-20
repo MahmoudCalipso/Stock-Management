@@ -1,18 +1,23 @@
 <?php
 
-use Illuminate\Http\Request;
+Route::group(['prefix' => 'v1', 'as' => 'admin.', 'namespace' => 'Api\V1\Admin'], function () {
+    Route::apiResource('permissions', 'PermissionsApiController');
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+    Route::apiResource('roles', 'RolesApiController');
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    Route::apiResource('users', 'UsersApiController');
+
+    Route::apiResource('product-categories', 'ProductCategoryApiController');
+
+    Route::apiResource('product-tags', 'ProductTagApiController');
+
+    Route::apiResource('products', 'ProductApiController');
+
+    Route::apiResource('task-statuses', 'TaskStatusApiController');
+
+    Route::apiResource('task-tags', 'TaskTagApiController');
+
+    Route::apiResource('tasks', 'TaskApiController');
+
+    Route::apiResource('tasks-calendars', 'TasksCalendarApiController');
 });
